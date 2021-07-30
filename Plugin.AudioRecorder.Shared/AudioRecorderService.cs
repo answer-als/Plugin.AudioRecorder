@@ -22,6 +22,9 @@ namespace Plugin.AudioRecorder
 		DateTime? startTime;
 		TaskCompletionSource<string> recordTask;
 
+		// ANSWER ALS FORK ADDITION
+		public static float volumeLevel { get; set; } = 0.0f;
+
 		/// <summary>
 		/// Gets the details of the underlying audio stream.
 		/// </summary>
@@ -145,6 +148,9 @@ namespace Plugin.AudioRecorder
 		void AudioStream_OnBroadcast (object sender, byte [] bytes)
 		{
 			var level = AudioFunctions.CalculateLevel (bytes);
+
+			// ANSWER ALS FORK ADDITION
+			volumeLevel = level;
 
 			if (level < NearZero && !audioDetected) // discard any initial 0s so we don't jump the gun on timing out
 			{
